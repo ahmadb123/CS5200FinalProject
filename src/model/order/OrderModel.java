@@ -11,9 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DBConnection;
 
+/**
+ * Concrete JDBC implementation of IOrderModel. routes CRUD and status
+ * transitions through stored procedures (place_order, cancel_order,
+ * update_order_status, etc.). the calculateOrderTotal method uses a plain
+ * PreparedStatement to call the calc_order_total SQL function directly,
+ * demonstrating the "Java calls server-side function" pattern.
+ */
 public class OrderModel implements IOrderModel {
   private final DBConnection database;
 
+  /**
+   * @param db shared DB connection factory.
+   */
   public OrderModel(DBConnection db) {
     this.database = db;
   }

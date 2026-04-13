@@ -9,9 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DBConnection;
 
+/**
+ * Concrete JDBC implementation of IPaymentModel. all operations go through
+ * stored procedures (create_payment, mark_payment_paid, update_payment_status,
+ * etc.). the 1:1 lookup by order uses find_payment_by_order_id. paid_at is
+ * nullable — handled in mapRow with a null check on the Timestamp.
+ */
 public class PaymentModel implements IPaymentModel {
   private final DBConnection database;
 
+  /**
+   * @param db shared DB connection factory.
+   */
   public PaymentModel(DBConnection db) {
     this.database = db;
   }

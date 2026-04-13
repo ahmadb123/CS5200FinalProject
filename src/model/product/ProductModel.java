@@ -9,9 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DBConnection;
 
+/**
+ * Concrete JDBC implementation of IProductModel. routes every operation
+ * through a matching stored procedure (add_product, find_product_by_id,
+ * search_products, etc.) via CallableStatement. the private mapRow helper
+ * builds Product instances through the Builder to keep entities immutable.
+ */
 public class ProductModel implements IProductModel {
   private final DBConnection database;
 
+  /**
+   * @param db shared DB connection factory.
+   */
   public ProductModel(DBConnection db) {
     this.database = db;
   }

@@ -1,38 +1,47 @@
-import model.DBConnection;
-import model.user.IBaseUser;
-import model.user.UserModel;
-import model.order.Order;
-import model.order.OrderModel;
-import model.payment.Payment;
-import model.payment.PaymentModel;
+import controller.CliLauncher;
+import controller.GuiLauncher;
+import controller.IWorldBuyController;
 
+/**
+ * Entry point for WorldBuy. parses command-line arguments to pick
+ * between GUI and CLI modes, then hands control to the matching launcher.
+ * usage:
+ *   java Main              -> launches GUI (default)
+ *   java Main --mode gui   -> launches GUI
+ *   java Main --mode cli   -> launches text CLI
+ */
 public class Main {
+
+  /**
+   * program entry point. reads --mode argument and starts the right launcher.
+   *
+   * @param args command-line arguments. expects optional --mode gui|cli.
+   */
   public static void main(String[] args) {
-    DBConnection db = new DBConnection();
-    UserModel userModel = new UserModel(db);
-    OrderModel orderModel = new OrderModel(db);
-    PaymentModel paymentModel = new PaymentModel(db);
+    String mode = parseMode(args);
 
-    try {
-      IBaseUser ahmad = userModel.register("Ahmad", "ahmad@example.com", "local");
-      Order order = orderModel.placeOrder(ahmad.getUserId(), "standard", "credit");
-
-      Payment payment = paymentModel.createPayment(order.getOrderId(), "credit");
-      System.out.println("Created: id=" + payment.getPaymentId()
-          + " status=" + payment.getPaymentStatus()
-          + " paidAt=" + payment.getPaidAt());
-
-      paymentModel.markAsPaid(payment.getPaymentId());
-
-      Payment paid = paymentModel.findPaymentByOrderId(order.getOrderId());
-      System.out.println("After markAsPaid: status=" + paid.getPaymentStatus()
-          + " paidAt=" + paid.getPaidAt());
-
-      orderModel.deleteOrder(order.getOrderId());
-      userModel.deleteAnyUser(ahmad.getUserId());
-      System.out.println("Cleanup done.");
-    } catch (Exception e) {
-      e.printStackTrace();
+    IWorldBuyController launcher;
+    if ("cli".equalsIgnoreCase(mode)) {
+      launcher = new CliLauncher();
+    } else {
+      launcher = new GuiLauncher();
     }
+    launcher.run();
+  }
+
+  /**
+   * extracts the value of the --mode flag from the argument array.
+   * defaults to "gui" if no --mode is passed.
+   *
+   * @param args the raw argument array from main.
+   * @return the mode value ("gui" or "cli"), or "gui" by default.
+   */
+  private static String parseMode(String[] args) {
+    for (int i = 0; i < args.length - 1; i++) {
+      if ("--mode".equalsIgnoreCase(args[i])) {
+        return args[i + 1];
+      }
+    }
+    return "gui";
   }
 }

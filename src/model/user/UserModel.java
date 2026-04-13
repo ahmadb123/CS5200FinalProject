@@ -9,9 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DBConnection;
 
+/**
+ * Concrete JDBC implementation of the user + admin model.
+ * implements IAdminModel (which extends IUserModel), so a single instance
+ * satisfies both contracts. the controller hands it out as IUserModel or
+ * IAdminModel depending on the caller's role — same object, two views.
+ * all SQL is routed through stored procedures (register_user, find_user_by_email,
+ * promote_user_to_admin, etc.) so the Java side stays as thin as possible.
+ * uses BaseUserAbstract.of(...) in mapRow to return the right subclass.
+ */
 public class UserModel implements IAdminModel {
   private final DBConnection database;
 
+  /**
+   * @param db shared DB connection factory injected by Main.
+   */
   public UserModel(DBConnection db) {
     this.database = db;
   }

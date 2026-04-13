@@ -2,6 +2,13 @@ package model.product;
 
 import java.math.BigDecimal;
 
+/**
+ * Product entity. immutable data holder with 5 fields: productId, productUrl,
+ * productName, specification, unitPrice. constructed via the nested Builder
+ * (private constructor) to enforce that instances are always fully-formed.
+ * toBuilder() produces a clone for "change one field" updates without
+ * mutating the original.
+ */
 public class Product {
   private final int productId;
   private final String productUrl;

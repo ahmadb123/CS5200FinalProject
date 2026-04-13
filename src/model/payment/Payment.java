@@ -2,6 +2,12 @@ package model.payment;
 
 import java.time.LocalDateTime;
 
+/**
+ * Payment entity. 5 fields: paymentId, orderId (FK, UNIQUE for 1:1),
+ * paymentMethod, paymentStatus, paidAt. paidAt is nullable — only set
+ * once the payment transitions from 'pending' to 'paid'. immutable,
+ * constructed via the nested Builder.
+ */
 public class Payment {
   private final int paymentId;
   private final int orderId;

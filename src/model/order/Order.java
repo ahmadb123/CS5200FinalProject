@@ -3,6 +3,12 @@ package model.order;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Order entity. immutable data holder with 7 fields: orderId, userId (FK to
+ * users), orderDate, status, shippingMethod, paymentMethod, totalAmount.
+ * constructed via the nested Builder. toBuilder() produces a clone for
+ * in-place "change one field" updates without mutating the original.
+ */
 public class Order {
   private final int orderId;
   private final int userId;

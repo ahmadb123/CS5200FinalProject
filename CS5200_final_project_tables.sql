@@ -720,7 +720,71 @@ END //
 DELIMITER ;
 
 
--- test
-INSERT INTO users(name, email) VALUES ('test', 'test@gmail.com');
+-- =====================================================
+-- SAMPLE DATA
+-- =====================================================
 
-SELECT * FROM users;
+-- 4 users (1 admin + 3 regular)
+INSERT INTO users (user_id, name, email, oauth_provider, is_admin, created_at) VALUES
+    (1, 'Ahmad Bishara', 'ahmad@neu.edu',    'google', TRUE,  '2026-04-01 09:00:00'),
+    (2, 'ShunPo Chang',  'shunpo@neu.edu',   'google', FALSE, '2026-04-02 10:15:00'),
+    (3, 'Sarah Johnson', 'sarah@example.com','local',  FALSE, '2026-04-03 11:30:00'),
+    (4, 'Mike Chen',     'mike@example.com', 'local',  FALSE, '2026-04-04 14:45:00');
+
+-- 4 products
+INSERT INTO products (product_id, product_url, product_name, specification, unit_price) VALUES
+    (1, 'https://apple.com/iphone-15-pro', 'iPhone 15 Pro',  '256GB Titanium Black',    1099.00),
+    (2, 'https://apple.com/macbook-pro',   'MacBook Pro M4', '16GB RAM / 512GB SSD',    1999.00),
+    (3, 'https://apple.com/airpods-pro',   'AirPods Pro 2',  'USB-C, Noise Cancelling',  249.00),
+    (4, 'https://apple.com/ipad-air',      'iPad Air',       '128GB WiFi, Space Gray',   599.00);
+
+-- 4 exchange rates
+INSERT INTO exchange_rates (rate_id, currency, exchange_rate, updated_at) VALUES
+    (1, 'USD',   1.0000, '2026-04-13 08:00:00'),
+    (2, 'EUR',   0.9250, '2026-04-13 08:00:00'),
+    (3, 'GBP',   0.7850, '2026-04-13 08:00:00'),
+    (4, 'JPY', 152.3000, '2026-04-13 08:00:00');
+
+-- 4 orders (referencing users)
+INSERT INTO orders (order_id, user_id, order_date, status, shipping_method, payment_method, total_amount) VALUES
+    (1, 2, '2026-04-10 12:00:00', 'delivered', 'express',  'credit', 1348.00),
+    (2, 2, '2026-04-11 14:30:00', 'shipped',   'standard', 'paypal', 1999.00),
+    (3, 3, '2026-04-12 09:15:00', 'pending',   'standard', 'credit', 1447.00),
+    (4, 4, '2026-04-13 10:00:00', 'cancelled', 'express',  'credit', 1099.00);
+
+-- 6 order_items (subtotal auto-computed by trigger)
+INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
+    (1, 1, 1, 1099.00),
+    (1, 3, 1,  249.00),
+    (2, 2, 1, 1999.00),
+    (3, 4, 2,  599.00),
+    (3, 3, 1,  249.00),
+    (4, 1, 1, 1099.00);
+
+-- 4 payments (1:1 with orders)
+INSERT INTO payments (payment_id, order_id, payment_method, payment_status, paid_at) VALUES
+    (1, 1, 'credit', 'paid',     '2026-04-10 12:05:00'),
+    (2, 2, 'paypal', 'paid',     '2026-04-11 14:35:00'),
+    (3, 3, 'credit', 'pending',  NULL),
+    (4, 4, 'credit', 'refunded', '2026-04-13 10:30:00');
+
+-- 3 shipments (cancelled order 4 has no shipment)
+INSERT INTO shipments (shipment_id, order_id, tracking_number, carrier, shipment_status, shipped_at, delivered_at) VALUES
+    (1, 1, '1Z999AA10123456784', 'UPS',   'delivered', '2026-04-10 18:00:00', '2026-04-12 15:30:00'),
+    (2, 2, '781234567890',       'FedEx', 'shipped',   '2026-04-11 17:00:00', NULL),
+    (3, 3, '9400100000000000',   'USPS',  'preparing', NULL,                  NULL);
+
+-- 5 order logs (audit trail)
+INSERT INTO order_logs (log_id, order_id, action_type, action_description, created_at) VALUES
+    (1, 1, 'CREATED',       'Order placed',                      '2026-04-10 12:00:00'),
+    (2, 1, 'STATUS_CHANGE', 'pending -> shipped',                '2026-04-10 18:00:00'),
+    (3, 1, 'STATUS_CHANGE', 'shipped -> delivered',              '2026-04-12 15:30:00'),
+    (4, 2, 'CREATED',       'Order placed',                      '2026-04-11 14:30:00'),
+    (5, 4, 'CANCELLED',     'User cancelled before fulfillment', '2026-04-13 10:30:00');
+
+-- 4 email notifications
+INSERT INTO email_notifications (notification_id, order_id, email, subject, sent_at, status) VALUES
+    (1, 1, 'shunpo@neu.edu',   'Order Confirmed', '2026-04-10 12:01:00', 'sent'),
+    (2, 1, 'shunpo@neu.edu',   'Order Delivered', '2026-04-12 15:31:00', 'sent'),
+    (3, 2, 'shunpo@neu.edu',   'Order Shipped',   '2026-04-11 17:01:00', 'sent'),
+    (4, 4, 'mike@example.com', 'Order Cancelled', '2026-04-13 10:31:00', 'sent');

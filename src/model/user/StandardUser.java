@@ -2,6 +2,12 @@ package model.user;
 
 import java.time.LocalDateTime;
 
+/**
+ * Regular (non-admin) user entity. extends BaseUserAbstract for the 5 shared
+ * fields and supplies a private constructor + nested Builder for immutable
+ * construction. isAdmin() always returns false. the DB row is mapped to this
+ * subclass when is_admin is 0, via BaseUserAbstract.of(...).
+ */
 public class StandardUser extends BaseUserAbstract {
 
   private StandardUser(int userId, String name, String email, String oauth,

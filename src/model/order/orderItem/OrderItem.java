@@ -2,6 +2,12 @@ package model.order.orderItem;
 
 import java.math.BigDecimal;
 
+/**
+ * Order item entity. one row in order_items — a product-quantity pair
+ * attached to an order. 5 fields: orderId + productId (composite PK),
+ * quantity, unitPrice, subtotal. subtotal is computed by a DB trigger,
+ * not by Java. immutable, constructed via the nested Builder.
+ */
 public class OrderItem {
   private final int orderId;
   private final int productId;
