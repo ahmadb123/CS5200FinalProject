@@ -4,8 +4,9 @@ import java.sql.SQLException;
 import model.user.IUserModel;
 
 /**
- * Command that deletes a user's own account. cascades to the user's orders
- * via FK. execute() returns true if a row was deleted.
+ * Deletes a user's own account. The foreign keys on orders cascade, so
+ * the user's orders disappear with them. execute() returns true when a
+ * row was deleted.
  */
 public class DeleteAccountCommand implements Icommand<Boolean>{
   private final IUserModel userModel;

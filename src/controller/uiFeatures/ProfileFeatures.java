@@ -3,8 +3,9 @@ package controller.uiFeatures;
 import model.user.IBaseUser;
 
 /**
- * Profile features interface — actions a signed-in user performs on their own account.
- * viewing, updating, and deleting. separate from admin features which operate on other users.
+ * Actions a signed-in user can take on their own account: view, update,
+ * or delete. Kept separate from the admin features, which act on other
+ * users' accounts.
  */
 public interface ProfileFeatures {
 

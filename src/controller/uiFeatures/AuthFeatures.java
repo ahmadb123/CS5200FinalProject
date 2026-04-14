@@ -1,9 +1,9 @@
 package controller.uiFeatures;
 
 /**
- * Auth features interface — the 3 user-authentication actions the UI can invoke.
- * register, login, and logout. the controller implements these and pushes results
- * back to the view via display callbacks.
+ * Authentication actions the UI can call: register, login, and logout.
+ * The controller implements these and pushes results back to the view
+ * through its display methods.
  */
 public interface AuthFeatures {
 

@@ -3,19 +3,22 @@ import controller.GuiLauncher;
 import controller.IWorldBuyController;
 
 /**
- * Entry point for WorldBuy. parses command-line arguments to pick
- * between GUI and CLI modes, then hands control to the matching launcher.
- * usage:
- *   java Main              -> launches GUI (default)
- *   java Main --mode gui   -> launches GUI
- *   java Main --mode cli   -> launches text CLI
+ * Entry point for WorldBuy. Parses command-line arguments to pick
+ * between GUI and CLI modes, then hands control to the matching
+ * launcher.
+ *
+ * Usage:
+ *   java Main              launches the GUI (default)
+ *   java Main --mode gui   launches the GUI
+ *   java Main --mode cli   launches the text CLI
  */
 public class Main {
 
   /**
-   * program entry point. reads --mode argument and starts the right launcher.
+   * Program entry point. Reads the --mode argument and starts the right
+   * launcher.
    *
-   * @param args command-line arguments. expects optional --mode gui|cli.
+   * @param args command-line arguments (optional --mode gui|cli).
    */
   public static void main(String[] args) {
     String mode = parseMode(args);
@@ -30,8 +33,8 @@ public class Main {
   }
 
   /**
-   * extracts the value of the --mode flag from the argument array.
-   * defaults to "gui" if no --mode is passed.
+   * Extracts the value of the --mode flag from the argument array.
+   * Defaults to "gui" if no --mode is passed.
    *
    * @param args the raw argument array from main.
    * @return the mode value ("gui" or "cli"), or "gui" by default.

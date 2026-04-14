@@ -6,8 +6,9 @@ import model.user.IAdminModel;
 import model.user.IBaseUser;
 
 /**
- * Admin command that loads every user in the system. execute() returns
- * the full list (each user is a StandardUser or AdminUser via factory).
+ * Admin-only: loads every user in the system. execute() returns the
+ * full list, where each entry is a StandardUser or AdminUser picked by
+ * the factory.
  */
 public class ViewAllUsersCommand implements Icommand<List<IBaseUser>> {
 

@@ -4,9 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the order log model — an append-only audit trail of order events.
- * no update or delete methods; logs are permanent once written. typical use:
- * "order created", "status changed from pending to shipped", "cancelled", etc.
+ * Order log model interface. An append-only audit trail of order events.
+ * There are no update or delete methods - once a log row is written it is
+ * permanent. Example entries: "order created", "status changed from
+ * pending to shipped", "cancelled".
  */
 public interface IOrderLogModel {
 

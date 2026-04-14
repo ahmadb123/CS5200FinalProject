@@ -3,11 +3,12 @@ package model.shipment;
 import java.time.LocalDateTime;
 
 /**
- * Shipment entity. 7 fields: shipmentId, orderId (FK, UNIQUE for 1:1),
- * trackingNumber, carrier, shipmentStatus, shippedAt, deliveredAt.
- * both timestamps are nullable — shippedAt is set when status becomes
- * 'shipped', deliveredAt when it becomes 'delivered'. immutable,
- * constructed via the nested Builder.
+ * Shipment entity. One row per order (orderId is UNIQUE). Holds the
+ * shipment id, the order id, the tracking number and carrier, the
+ * current status, and the shippedAt / deliveredAt timestamps. Both
+ * timestamps can be null: shippedAt is filled in when the status moves
+ * to 'shipped', deliveredAt when it moves to 'delivered'. Immutable;
+ * built through the nested Builder.
  */
 public class Shipment {
   private final int shipmentId;

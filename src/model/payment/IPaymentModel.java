@@ -4,10 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the payment model. each order has at most one payment (enforced
- * by a UNIQUE constraint on order_id), so findPaymentByOrderId returns a single
- * payment rather than a list. payments start as 'pending' and transition to
- * 'paid', 'failed', or 'refunded'.
+ * Payment model interface. Each order has at most one payment (enforced by
+ * a UNIQUE constraint on order_id), so findPaymentByOrderId returns a
+ * single payment instead of a list. A payment starts as 'pending' and
+ * moves to 'paid', 'failed', or 'refunded'.
  */
 public interface IPaymentModel {
 
@@ -29,7 +29,7 @@ public interface IPaymentModel {
   Payment findPaymentById(int paymentId) throws SQLException;
 
   /**
-   * 1:1 lookup — since every order has at most one payment.
+   * 1:1 lookup - since every order has at most one payment.
    *
    * @param orderId order to look up.
    * @return that order's payment, or null.
@@ -44,7 +44,7 @@ public interface IPaymentModel {
   List<Payment> findAllPayments() throws SQLException;
 
   /**
-   * convenience — sets status to 'paid' and stamps paid_at with NOW().
+   * convenience - sets status to 'paid' and stamps paid_at with NOW().
    *
    * @param paymentId payment to mark paid.
    * @return true if a row was updated.

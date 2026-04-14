@@ -8,9 +8,10 @@ import model.AbstractJdbcModel;
 import model.DBConnection;
 
 /**
- * Concrete JDBC implementation of IOrderLogModel. extends AbstractJdbcModel
- * and uses inline SQL constants. append-only by design — only insert and
- * select queries, no updates or deletes (logs are permanent audit records).
+ * IOrderLogModel implementation. Extends AbstractJdbcModel and uses
+ * inline SQL string constants. The table is append-only by design, so
+ * there are only insert and select queries here - audit log rows are
+ * never updated or deleted.
  */
 public class OrderLogModel extends AbstractJdbcModel implements IOrderLogModel {
 

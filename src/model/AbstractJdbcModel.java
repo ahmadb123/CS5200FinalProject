@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Shared base class for JDBC-backed model implementations. removes the
- * try-with-resources + param-setter + row-mapping duplication that would
- * otherwise repeat in every DAO method. subclasses call queryOne / queryMany /
- * executeUpdate / executeInsertReturningKey with SQL + lambdas, and the base
- * class handles connections, statements, and result sets.
- * used by ShipmentModel, OrderLogModel, EmailNotificationModel, and
- * ExchangeRateModel. the older entity models (User, Product, Order, OrderItem,
- * Payment) predate this base class and use CallableStatement directly.
+ * Shared base class for JDBC-backed model implementations. Pulls out the
+ * try-with-resources, parameter setter, and row-mapping boilerplate that
+ * would otherwise repeat in every DAO method. Subclasses call queryOne,
+ * queryMany, executeUpdate, or executeInsertReturningKey with an SQL
+ * string plus lambdas; this base class manages the connection, statement,
+ * and result set. Used by ShipmentModel, OrderLogModel,
+ * EmailNotificationModel, and ExchangeRateModel. The older entity models
+ * (User, Product, Order, OrderItem, Payment) were written before this
+ * base class and still call CallableStatement directly.
  */
 public abstract class AbstractJdbcModel {
 
@@ -30,7 +31,7 @@ public abstract class AbstractJdbcModel {
   }
 
   /**
-   * Lambda-friendly parameter setter — binds the placeholders in a prepared
+   * Parameter setter lambda type. Binds the placeholders in a prepared
    * statement to their actual values.
    */
   @FunctionalInterface
@@ -45,7 +46,7 @@ public abstract class AbstractJdbcModel {
   }
 
   /**
-   * Lambda-friendly row mapper — builds a typed object from a result set row.
+   * Row mapper lambda type. Builds a typed object from a result set row.
    *
    * @param <T> entity type produced.
    */

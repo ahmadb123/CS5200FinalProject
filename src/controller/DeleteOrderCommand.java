@@ -4,8 +4,9 @@ import java.sql.SQLException;
 import model.order.IOrderModel;
 
 /**
- * Admin command that hard-deletes an order. cascades to order_items,
- * payments, shipments, order_logs, and email_notifications via FKs.
+ * Admin-only: permanently deletes an order. Foreign keys cascade the
+ * delete through order_items, payments, shipments, order_logs, and
+ * email_notifications.
  */
 public class DeleteOrderCommand implements Icommand<Boolean> {
 

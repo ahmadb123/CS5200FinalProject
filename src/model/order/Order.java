@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Order entity. immutable data holder with 7 fields: orderId, userId (FK to
- * users), orderDate, status, shippingMethod, paymentMethod, totalAmount.
- * constructed via the nested Builder. toBuilder() produces a clone for
- * in-place "change one field" updates without mutating the original.
+ * Order entity. Immutable data holder for one row in the orders table.
+ * Fields: orderId, userId (foreign key to users), orderDate, status,
+ * shippingMethod, paymentMethod, totalAmount. Instances are created
+ * through the nested Builder. toBuilder() returns a clone you can edit
+ * in place to change a single field without touching the original.
  */
 public class Order {
   private final int orderId;

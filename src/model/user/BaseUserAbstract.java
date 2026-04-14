@@ -3,12 +3,12 @@ package model.user;
 import java.time.LocalDateTime;
 
 /**
- * Skeletal base class for user entities. holds the 5 shared fields
- * (userId, name, email, oauthProvider, createdAt) as final protected fields
- * and their getter implementations. subclasses (StandardUser / AdminUser)
- * supply their own private constructor + Builder and implement isAdmin()
- * to discriminate roles. the static factory of(...) maps the DB is_admin
- * flag to the right subclass at row-mapping time.
+ * Abstract base class for user entities. Holds the shared fields (userId,
+ * name, email, oauthProvider, createdAt) as final protected fields along
+ * with their getters. Subclasses (StandardUser and AdminUser) provide
+ * their own private constructor and Builder and implement isAdmin(). The
+ * static factory of(...) reads the is_admin flag from a DB row and
+ * returns the matching subclass.
  */
 public abstract class BaseUserAbstract implements IBaseUser {
   protected final int userId;
@@ -62,7 +62,7 @@ public abstract class BaseUserAbstract implements IBaseUser {
   }
 
   /**
-   * role discriminator — implemented by each subclass.
+   * Role flag, implemented by each subclass.
    *
    * @return true if this user is an admin.
    */
@@ -70,9 +70,9 @@ public abstract class BaseUserAbstract implements IBaseUser {
   public abstract boolean isAdmin();
 
   /**
-   * factory method. builds the appropriate concrete subclass based on
-   * the is_admin flag. centralizes the role-selection logic so JDBC row
-   * mappers have one place to call instead of branching at each mapper.
+   * Factory method that builds the matching subclass based on the
+   * is_admin flag. Keeps the role branch in one place so every JDBC row
+   * mapper can call this instead of repeating the check.
    *
    * @param userId    primary key.
    * @param name      display name.
@@ -80,7 +80,7 @@ public abstract class BaseUserAbstract implements IBaseUser {
    * @param oauth     oauth provider label.
    * @param isAdmin   true to build an AdminUser, false for StandardUser.
    * @param createdAt creation timestamp.
-   * @return a new IBaseUser of the appropriate concrete type.
+   * @return a new IBaseUser of the matching concrete type.
    */
   public static IBaseUser of(int userId, String name,
                              String email, String oauth, boolean isAdmin,

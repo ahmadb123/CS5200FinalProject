@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import model.order.IOrderModel;
 
 /**
- * Command that sets an order's status to 'cancelled'. execute() returns
- * true if a row was updated.
+ * Sets an order's status to 'cancelled'. execute() returns true when a
+ * row was updated.
  */
 public class CancelOrderCommand implements Icommand<Boolean> {
 

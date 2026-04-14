@@ -88,9 +88,9 @@ create table exchange_rates(
     updated_at datetime
 );
 
--------------------------------------------------------
+-- -----------------------------------------------------
 
--- M:N table (orders ↔ products)
+-- M:N table (orders <-> products)
 
 create table order_items(
     order_id int,
@@ -110,7 +110,7 @@ create table order_items(
 
 
 -- =====================================================
--- STORED PROCEDURES — USERS
+-- STORED PROCEDURES - USERS
 -- =====================================================
 
 -- Registers a new user. Always creates a non-admin account.
@@ -124,11 +124,12 @@ CREATE PROCEDURE register_user(
 )
 BEGIN
     INSERT INTO users (name, email, oauth_provider, is_admin, created_at)
-    VALUES (p_name, p_email, p_oauth, FALSE, NOW());
+    VALUES (p_name, p_email, p_oauth, FALSE, CURRENT_TIMESTAMP);
 
     SELECT user_id, name, email, oauth_provider, is_admin, created_at
       FROM users
-     WHERE user_id = LAST_INSERT_ID();
+     ORDER BY user_id DESC
+     LIMIT 1;
 END //
 DELIMITER ;
 
@@ -188,7 +189,7 @@ DELIMITER ;
 
 
 -- =====================================================
--- STORED PROCEDURES — PRODUCTS
+-- STORED PROCEDURES - PRODUCTS
 -- =====================================================
 
 -- Adds a new product (either from a user's product request or admin).
@@ -207,7 +208,8 @@ BEGIN
 
     SELECT product_id, product_url, product_name, specification, unit_price
       FROM products
-     WHERE product_id = LAST_INSERT_ID();
+     ORDER BY product_id DESC
+     LIMIT 1;
 END //
 DELIMITER ;
 
@@ -236,14 +238,16 @@ END //
 DELIMITER ;
 
 
--- Searches products by a case-insensitive keyword in the name.
+-- Searches products by a case-insensitive name pattern.
+-- The caller is responsible for wrapping the keyword with '%' wildcards
+-- (e.g. pass '%phone%' to match anything containing "phone").
 DROP PROCEDURE IF EXISTS search_products;
 DELIMITER //
-CREATE PROCEDURE search_products(IN p_keyword VARCHAR(128))
+CREATE PROCEDURE search_products(IN p_pattern VARCHAR(128))
 BEGIN
     SELECT product_id, product_url, product_name, specification, unit_price
       FROM products
-     WHERE product_name LIKE CONCAT('%', p_keyword, '%')
+     WHERE product_name LIKE p_pattern
      ORDER BY product_name;
 END //
 DELIMITER ;
@@ -296,7 +300,7 @@ DELIMITER ;
 
 
 -- =====================================================
--- STORED PROCEDURES — ORDERS
+-- STORED PROCEDURES - ORDERS
 -- =====================================================
 
 -- Places a new order (status='pending', total=0, date=NOW). Returns the new row.
@@ -309,11 +313,12 @@ CREATE PROCEDURE place_order(
 )
 BEGIN
     INSERT INTO orders (user_id, order_date, status, shipping_method, payment_method, total_amount)
-    VALUES (p_user_id, NOW(), 'pending', p_shipping, p_payment, 0.00);
+    VALUES (p_user_id, CURRENT_TIMESTAMP, 'pending', p_shipping, p_payment, 0.00);
 
     SELECT order_id, user_id, order_date, status, shipping_method, payment_method, total_amount
       FROM orders
-     WHERE order_id = LAST_INSERT_ID();
+     ORDER BY order_id DESC
+     LIMIT 1;
 END //
 DELIMITER ;
 
@@ -399,7 +404,7 @@ DELIMITER ;
 
 
 -- =====================================================
--- STORED PROCEDURES — ORDER ITEMS
+-- STORED PROCEDURES - ORDER ITEMS
 -- =====================================================
 
 -- Adds a product to an order. Subtotal is auto-computed by trigger.
@@ -485,7 +490,7 @@ DELIMITER ;
 
 
 -- =====================================================
--- STORED PROCEDURES — PAYMENTS
+-- STORED PROCEDURES - PAYMENTS
 -- =====================================================
 
 -- Creates a new payment for an order. Starts in 'pending' state with no paid_at.
@@ -499,7 +504,8 @@ BEGIN
 
     SELECT payment_id, order_id, payment_method, payment_status, paid_at
       FROM payments
-     WHERE payment_id = LAST_INSERT_ID();
+     ORDER BY payment_id DESC
+     LIMIT 1;
 END //
 DELIMITER ;
 
@@ -547,7 +553,7 @@ CREATE PROCEDURE mark_payment_paid(IN p_payment_id INT)
 BEGIN
     UPDATE payments
        SET payment_status = 'paid',
-           paid_at = NOW()
+           paid_at = CURRENT_TIMESTAMP
      WHERE payment_id = p_payment_id;
 END //
 DELIMITER ;
@@ -602,7 +608,7 @@ DELIMITER ;
 
 
 -- =====================================================
--- STORED PROCEDURES — ADMIN
+-- STORED PROCEDURES - ADMIN
 -- =====================================================
 
 -- Returns all users in the system (for admin management screens).
@@ -660,7 +666,7 @@ DELIMITER ;
 -- =====================================================
 
 -- Returns the total cost of an order by summing its order_items subtotals.
--- Used by the Java app whenever we need the authoritative total for an order.
+-- Called from the Java app when it needs the total for an order.
 DROP FUNCTION IF EXISTS calc_order_total;
 DELIMITER //
 CREATE FUNCTION calc_order_total(p_order_id INT)
@@ -669,17 +675,20 @@ DETERMINISTIC
 READS SQL DATA
 BEGIN
     DECLARE total DECIMAL(10,2);
-    SELECT IFNULL(SUM(subtotal), 0)
+    SELECT SUM(subtotal)
       INTO total
       FROM order_items
      WHERE order_id = p_order_id;
+    IF total IS NULL THEN
+        SET total = 0;
+    END IF;
     RETURN total;
 END //
 DELIMITER ;
 
 
 -- Converts an amount to another currency using the exchange_rates table.
--- Returns the original amount if the currency is not found (safe fallback).
+-- Returns the original amount unchanged if the currency is not in the table.
 DROP FUNCTION IF EXISTS convert_currency;
 DELIMITER //
 CREATE FUNCTION convert_currency(p_amount DECIMAL(10,2), p_currency VARCHAR(64))

@@ -4,10 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the shipment model. like payment, shipments have a 1:1
- * relationship with orders (unique order_id). shipments start as 'preparing'
- * and transition through 'shipped' and 'delivered' with timestamps stamped
- * at each status change.
+ * Shipment model interface. Like payment, shipments have a 1:1 relationship
+ * with orders (unique order_id). A shipment starts as 'preparing' and moves
+ * to 'shipped' and then 'delivered', with timestamps recorded at each
+ * status change.
  */
 public interface IShipmentModel {
 
@@ -15,7 +15,7 @@ public interface IShipmentModel {
    * creates a new shipment row with status 'preparing' and null timestamps.
    *
    * @param orderId        order this shipment is for.
-   * @param trackingNumber carrier tracking number (string — can contain letters).
+   * @param trackingNumber carrier tracking number (string - can contain letters).
    * @param carrier        carrier name (e.g. "UPS", "FedEx", "USPS").
    * @return the new shipment with DB-assigned id.
    * @throws SQLException on DB error.

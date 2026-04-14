@@ -6,8 +6,8 @@ import model.order.IOrderModel;
 import model.order.Order;
 
 /**
- * Admin command that loads every order in the system. execute() returns
- * the full list.
+ * Admin-only: loads every order in the system and hands back the full
+ * list from execute().
  */
 public class ViewAllOrdersCommand implements Icommand<List<Order>> {
 

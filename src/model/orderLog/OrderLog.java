@@ -3,10 +3,11 @@ package model.orderLog;
 import java.time.LocalDateTime;
 
 /**
- * Order log entity. one row in the audit trail for an order. 5 fields:
- * logId, orderId (FK), actionType (e.g. "STATUS_CHANGE"), actionDescription
- * (human-readable), createdAt (timestamp). append-only — never updated
- * or deleted in isolation. immutable, constructed via the nested Builder.
+ * Order log entity. One row in the order audit trail, with a log id, an
+ * order id, an action type (for example "STATUS_CHANGE"), a
+ * human-readable description, and a creation timestamp. Rows are
+ * append-only - once written they are never updated or deleted on their
+ * own. Immutable; built through the nested Builder.
  */
 public class OrderLog {
   private final int logId;

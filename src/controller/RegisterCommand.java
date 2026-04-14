@@ -6,9 +6,9 @@ import model.user.IUserModel;
 import model.user.UserModel;
 
 /**
- * Command that registers a new user. constructed with the user model and
- * the three registration fields (name, email, oauth provider). execute()
- * inserts the row and returns the new user with its DB-assigned id.
+ * Registers a new user. Takes the user model and the three registration
+ * fields (name, email, and oauth provider). execute() inserts the row
+ * and returns the new user with its DB-assigned id.
  */
 public class RegisterCommand implements Icommand <IBaseUser> {
   private final IUserModel userModel;

@@ -4,10 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the email notification model. notifications are append-only
- * records of messages sent to users about their orders (confirmations, status
- * updates, cancellations). status ("sent", "failed", "pending") can be updated
- * but notifications are never deleted — they serve as an audit trail.
+ * Email notification model interface. Notifications are append-only records
+ * of messages sent to users about their orders (confirmations, status
+ * updates, cancellations). The status field ("sent", "failed", "pending")
+ * can be updated but a notification is never deleted, since the table is
+ * used as an audit trail.
  */
 public interface IEmailNotificationModel {
 

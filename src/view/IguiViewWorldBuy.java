@@ -3,10 +3,11 @@ package view;
 import controller.uiFeatures.UiFeatures;
 
 /**
- * GUI-specific view contract. extends IWorldBuyView with methods that only
- * make sense for the Swing UI: addFeatures (wires button listeners to features)
- * and refreshView (forces a repaint after programmatic state changes).
- * the controller holds this as its view reference.
+ * GUI view interface. Extends IWorldBuyView with two methods that only
+ * make sense for the Swing UI: addFeatures (attaches button listeners to
+ * features) and refreshView (forces a repaint after programmatic state
+ * changes). The controller keeps an instance of this as its view
+ * reference.
  */
 public interface IguiViewWorldBuy extends IWorldBuyView {
 

@@ -10,10 +10,10 @@ import java.util.List;
 import model.DBConnection;
 
 /**
- * Concrete JDBC implementation of IProductModel. routes every operation
- * through a matching stored procedure (add_product, find_product_by_id,
- * search_products, etc.) via CallableStatement. the private mapRow helper
- * builds Product instances through the Builder to keep entities immutable.
+ * IProductModel implementation. Each method calls into a matching
+ * stored procedure (add_product, find_product_by_id, search_products,
+ * etc.) through a CallableStatement. The private mapRow helper builds
+ * Product instances with the Builder so entities stay immutable.
  */
 public class ProductModel implements IProductModel {
   private final DBConnection database;
@@ -85,7 +85,7 @@ public class ProductModel implements IProductModel {
     try (Connection conn = database.getConnection();
          CallableStatement cs = conn.prepareCall("{CALL search_products(?)}")) {
 
-      cs.setString(1, keyword);
+      cs.setString(1, "%" + keyword + "%");
 
       try (ResultSet rs = cs.executeQuery()) {
         while (rs.next()) {

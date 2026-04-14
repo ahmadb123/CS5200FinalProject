@@ -1,9 +1,10 @@
 package controller.uiFeatures;
 
 /**
- * Order features interface — all order-related actions the UI can invoke.
- * covers create (place), read (by user / by id / all), update (cancel / status),
- * delete, and the SQL function wrapper for calculating totals.
+ * Order-related actions the UI can call: placing orders, reading orders
+ * (by user, by id, or all), cancelling or updating an order's status,
+ * deleting an order, and computing an order total through the
+ * calc_order_total SQL function.
  */
 public interface OrderFeatures {
 

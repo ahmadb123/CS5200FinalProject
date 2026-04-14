@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import model.user.IAdminModel;
 
 /**
- * Admin command that returns the total number of users in the system.
+ * Admin-only: returns the total user count in the system.
  */
 public class CountUsersCommand implements Icommand<Integer> {
 

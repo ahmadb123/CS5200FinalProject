@@ -26,13 +26,13 @@ import model.user.BaseUserAbstract;
 import model.user.IBaseUser;
 
 /**
- * Swing implementation of the WorldBuy GUI view.
- * one JFrame with three cards swapped via CardLayout:
- *   - login / register card (unauthenticated)
- *   - user dashboard card (regular user: profile + orders)
- *   - admin dashboard card (admin: users table + all orders table)
- * implements addFeatures to wire button listeners, and six display callbacks
- * so the controller can push updates back via the features pattern.
+ * Swing implementation of the WorldBuy GUI view. One JFrame holds three
+ * cards that are swapped through a CardLayout: a login / register card
+ * shown when no one is signed in, a user dashboard card (profile and
+ * orders) for regular users, and an admin dashboard card (users table
+ * and all-orders table) for admins. addFeatures attaches the button
+ * listeners and the six display methods let the controller push updates
+ * back to the view.
  */
 public class WorldBuyGuiView extends JFrame implements IguiViewWorldBuy {
 
@@ -310,7 +310,7 @@ public class WorldBuyGuiView extends JFrame implements IguiViewWorldBuy {
   }
 
   // =====================================================
-  // addFeatures — wires button listeners to features
+  // addFeatures - wires button listeners to features
   // =====================================================
 
   @Override
@@ -523,7 +523,7 @@ public class WorldBuyGuiView extends JFrame implements IguiViewWorldBuy {
       return;
     }
     if (currentUser == null) {
-      // initial login / register — navigate to the right dashboard
+      // initial login / register - navigate to the right dashboard
       currentUser = user;
       if (user.isAdmin()) {
         adminWelcomeLabel.setText("Welcome, " + user.getName() + " (admin)");
@@ -536,7 +536,7 @@ public class WorldBuyGuiView extends JFrame implements IguiViewWorldBuy {
         features.findOrdersByUser(user.getUserId());
       }
     } else if (user.getUserId() == currentUser.getUserId()) {
-      // updating own profile — refresh state and welcome label
+      // updating own profile - refresh state and welcome label
       currentUser = user;
       if (user.isAdmin()) {
         adminWelcomeLabel.setText("Welcome, " + user.getName() + " (admin)");
@@ -551,7 +551,7 @@ public class WorldBuyGuiView extends JFrame implements IguiViewWorldBuy {
           "Profile",
           JOptionPane.INFORMATION_MESSAGE);
     } else {
-      // viewing someone else's profile — show a read-only dialog
+      // viewing someone else's profile - show a read-only dialog
       JOptionPane.showMessageDialog(this,
           "User: " + user.getName()
               + "\nEmail: " + user.getEmail()

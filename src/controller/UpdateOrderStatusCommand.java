@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import model.order.IOrderModel;
 
 /**
- * Admin command that updates an order's status string. execute() returns
- * true if a row was updated.
+ * Admin-only: changes an order's status string. execute() returns true
+ * when a row was updated.
  */
 public class UpdateOrderStatusCommand implements Icommand<Boolean> {
 

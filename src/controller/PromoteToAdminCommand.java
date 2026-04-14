@@ -5,9 +5,10 @@ import model.user.IAdminModel;
 import model.user.IBaseUser;
 
 /**
- * Admin command that promotes a regular user to admin. execute() flips the
- * is_admin flag to true and returns the refreshed user — which will now be
- * an AdminUser instance thanks to the factory in BaseUserAbstract.of(...).
+ * Admin-only: promotes a regular user to admin. execute() sets the
+ * is_admin flag to true and returns the refreshed user. The returned
+ * object will be an AdminUser instance, because BaseUserAbstract.of(...)
+ * picks the subclass based on the new flag.
  */
 public class PromoteToAdminCommand implements Icommand<IBaseUser> {
 

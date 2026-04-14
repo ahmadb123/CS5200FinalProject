@@ -8,12 +8,10 @@ import model.AbstractJdbcModel;
 import model.DBConnection;
 
 /**
- * Concrete JDBC implementation of IShipmentModel. uses inline SQL via
+ * JDBC implementation of IShipmentModel. Uses inline SQL via
  * AbstractJdbcModel's helper methods (queryOne, queryMany, executeUpdate,
- * executeInsertReturningKey) rather than stored procedures. all SQL is
- * extracted to private static final constants at the top for readability.
- * demonstrates the alternative "no stored proc" path alongside the
- * CallableStatement-heavy User/Order/Product/Payment models.
+ * executeInsertReturningKey) instead of stored procedures. SQL strings are
+ * kept as private static final constants at the top of the file.
  */
 public class ShipmentModel extends AbstractJdbcModel implements IShipmentModel {
 

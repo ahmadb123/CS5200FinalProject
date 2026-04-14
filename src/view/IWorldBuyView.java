@@ -6,10 +6,11 @@ import model.order.Order;
 import model.user.IBaseUser;
 
 /**
- * Base view contract. defines the callback methods the controller uses to push
- * data and messages to the UI. any WorldBuy view (GUI or text) implements this.
- * there are two kinds of methods: status (displayMessage / displayError) and
- * typed data displays (displayUser / displayUsers / displayOrder / displayOrders).
+ * Base view interface. Every WorldBuy view (GUI or text) implements this
+ * and the controller uses its methods to push data and messages into the
+ * UI. There are two groups of methods: status methods (displayMessage,
+ * displayError) and typed data displays (displayUser, displayUsers,
+ * displayOrder, displayOrders).
  */
 public interface IWorldBuyView {
 

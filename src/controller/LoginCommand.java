@@ -5,8 +5,9 @@ import model.user.IBaseUser;
 import model.user.IUserModel;
 
 /**
- * Command that authenticates a user by email. execute() returns the matching
- * user (StandardUser or AdminUser) or null if no account exists.
+ * Logs a user in by email. execute() returns the matching user
+ * (StandardUser or AdminUser), or null if no account exists for that
+ * email.
  */
 public class LoginCommand implements Icommand<IBaseUser> {
   private final IUserModel userModel;

@@ -3,10 +3,10 @@ package model.user;
 import java.time.LocalDateTime;
 
 /**
- * Read-only contract for a user entity. both StandardUser and AdminUser
- * (via BaseUserAbstract) implement this. the interface has no setters because
- * user entities are immutable once constructed — updates produce new instances.
- * isAdmin() is the discriminator that distinguishes the two concrete subclasses.
+ * Read-only view of a user entity. Both StandardUser and AdminUser
+ * implement this (via BaseUserAbstract). There are no setters because
+ * user entities are immutable once built - any update produces a new
+ * instance. The isAdmin() flag tells the two concrete subclasses apart.
  */
 public interface IBaseUser {
 

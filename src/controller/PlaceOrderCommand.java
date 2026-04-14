@@ -5,8 +5,8 @@ import model.order.IOrderModel;
 import model.order.Order;
 
 /**
- * Command that creates a new order for a user with the given shipping and
- * payment method. execute() returns the new order with its DB-assigned id.
+ * Creates a new order for a user with the given shipping and payment
+ * methods. execute() returns the new order with its DB-assigned id.
  */
 public class PlaceOrderCommand implements Icommand<Order> {
 

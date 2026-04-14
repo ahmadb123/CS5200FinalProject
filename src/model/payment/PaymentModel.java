@@ -10,10 +10,11 @@ import java.util.List;
 import model.DBConnection;
 
 /**
- * Concrete JDBC implementation of IPaymentModel. all operations go through
- * stored procedures (create_payment, mark_payment_paid, update_payment_status,
- * etc.). the 1:1 lookup by order uses find_payment_by_order_id. paid_at is
- * nullable — handled in mapRow with a null check on the Timestamp.
+ * IPaymentModel implementation. Every operation is backed by a stored
+ * procedure (create_payment, mark_payment_paid, update_payment_status,
+ * and so on). The 1:1 lookup by order uses find_payment_by_order_id.
+ * paid_at is nullable, so the mapRow helper null-checks the Timestamp
+ * before unwrapping it.
  */
 public class PaymentModel implements IPaymentModel {
   private final DBConnection database;

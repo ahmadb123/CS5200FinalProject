@@ -8,15 +8,16 @@ import model.user.UserModel;
 import view.WorldBuyGuiView;
 
 /**
- * GUI launcher. builds the Swing stack (DB connection, models, feature controller, view)
- * and shows the main window on the Swing event dispatch thread.
- * selected by Main when no --mode flag is given or when --mode gui is passed.
+ * GUI launcher. Builds the Swing stack (DB connection, models, feature
+ * controller, view) and shows the main window on the Swing event
+ * dispatch thread. Picked by Main when no --mode flag is given or when
+ * --mode gui is passed.
  */
 public class GuiLauncher implements IWorldBuyController {
 
   /**
-   * wires and starts the GUI. creates models, the feature controller,
-   * and the main view, then makes the JFrame visible.
+   * Starts the GUI by creating the models, the feature controller, and
+   * the main view, then making the JFrame visible.
    */
   @Override
   public void run() {

@@ -1,12 +1,12 @@
 package controller.uiFeatures;
 
 /**
- * Master UI features contract. connects the view to the controller and model.
- * forward path: view -> features -> controller -> model.
- * update path: view <- (push updates) <- controller <- model.
- * this interface extends four parallel sub-feature interfaces so each concern
- * (auth, profile, orders, admin) has its own smaller contract, avoiding one
- * overly large interface. the single controller (GuiController) implements UiFeatures.
+ * Top-level UI features interface that glues the view to the controller
+ * and model layers. Forward path goes view -> features -> controller ->
+ * model; updates flow back the other way, view &lt;- controller &lt;- model.
+ * It extends four smaller sub-feature interfaces (auth, profile, orders,
+ * admin) so each area has its own file instead of one huge interface.
+ * GuiController is the single class that implements UiFeatures.
  */
 public interface UiFeatures extends AuthFeatures,
     ProfileFeatures, OrderFeatures,

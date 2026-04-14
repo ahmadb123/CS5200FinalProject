@@ -3,11 +3,11 @@ package model.product;
 import java.math.BigDecimal;
 
 /**
- * Product entity. immutable data holder with 5 fields: productId, productUrl,
- * productName, specification, unitPrice. constructed via the nested Builder
- * (private constructor) to enforce that instances are always fully-formed.
- * toBuilder() produces a clone for "change one field" updates without
- * mutating the original.
+ * Product entity. One row in the products table: productId, productUrl,
+ * productName, specification, and unitPrice. The constructor is private
+ * so every instance has to go through the nested Builder, which means
+ * partial objects are impossible. toBuilder() hands back a clone so you
+ * can flip one field without mutating the original.
  */
 public class Product {
   private final int productId;

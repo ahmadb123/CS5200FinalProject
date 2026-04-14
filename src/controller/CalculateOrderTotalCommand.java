@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import model.order.IOrderModel;
 
 /**
- * Command that computes an order's total by calling the calc_order_total
- * SQL function server-side. demonstrates the "Java calls stored function"
- * rubric pattern. execute() returns the total, or 0 if the order has no items.
+ * Computes an order's total by calling the calc_order_total SQL
+ * function. execute() returns the total, or 0 if the order has no
+ * items.
  */
 public class CalculateOrderTotalCommand implements Icommand<BigDecimal> {
 

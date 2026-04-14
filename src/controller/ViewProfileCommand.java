@@ -5,8 +5,8 @@ import model.user.IBaseUser;
 import model.user.IUserModel;
 
 /**
- * Command that loads a user by id. execute() returns the matching user
- * or null if not found.
+ * Looks up a user by id. execute() returns the matching user, or null
+ * if there is no such user.
  */
 public class ViewProfileCommand implements Icommand<IBaseUser> {
   private final IUserModel userModel;

@@ -1,9 +1,10 @@
 package controller.uiFeatures;
 
 /**
- * Admin features interface — the 5 admin-only user-management actions.
- * only the admin dashboard has access to these in the UI. kept separate
- * from ProfileFeatures / AuthFeatures so regular-user menus cannot call them.
+ * Admin-only user management actions. Only the admin dashboard reaches
+ * these in the UI. They live in their own interface (rather than in
+ * ProfileFeatures or AuthFeatures) so regular-user menus have no way to
+ * call them.
  */
 public interface AdminFeatures {
 

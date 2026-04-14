@@ -30,16 +30,15 @@ import model.user.IUserModel;
 import view.IguiViewWorldBuy;
 
 /**
- * Concrete controller that implements UiFeatures and pushes updates to a
- * Swing view via the observer pattern. each feature method:
- *   1. validates inputs where applicable,
- *   2. executes the matching command,
- *   3. pushes the typed result to the view (displayUser / displayOrders / etc.),
- *   4. or pushes an error message via displayError on failure.
- * holds three model references — IUserModel for regular ops, IAdminModel for
- * admin ops (same concrete instance), and IOrderModel for orders. the view
- * reference is set after construction via setView(), which also hands this
- * controller to the view so it can wire button listeners.
+ * Controller that implements UiFeatures and pushes updates to a Swing
+ * view. Each feature method validates its inputs, runs the matching
+ * command, and then pushes either the typed result to the view
+ * (displayUser, displayOrders, etc.) or an error message via
+ * displayError. Holds three model references: IUserModel for regular
+ * operations, IAdminModel for admin operations (the same concrete
+ * instance), and IOrderModel for orders. The view reference is set after
+ * construction through setView(), which also registers this controller
+ * with the view so it can attach button listeners.
  */
 public class GuiController implements UiFeatures {
 

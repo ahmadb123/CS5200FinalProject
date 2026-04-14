@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import model.user.IUserModel;
 
 /**
- * Command that ends a user session. no DB operation happens — logout is
- * purely session state on the client. execute() returns Void (always null).
+ * Ends a user session. There is no DB work here because logout is just
+ * client-side session state, so execute() always returns null.
  */
 public class LogoutCommand implements Icommand<Void>{
   private final IUserModel userModel;

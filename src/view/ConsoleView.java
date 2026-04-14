@@ -25,13 +25,11 @@ import model.user.IBaseUser;
 import model.user.UserModel;
 
 /**
- * Text-based console view for WorldBuy.
- * drives the application via nested menu loops over System.in / System.out.
- * exposes every CRUD operation for all 9 entities so graders can exercise
- * the full model layer from a terminal. role-aware: regular users see the
- * user menu, admins see the admin menu with extra user-management options.
- * directly holds model references (no features indirection) — simpler for
- * breadth / debugging than the Swing GUI which goes through UiFeatures.
+ * Text-based console view for WorldBuy. Drives the application through
+ * nested menu loops on System.in / System.out and exposes a CRUD menu for
+ * every entity. Role-aware: regular users see the user menu, admins see
+ * the admin menu with extra user-management options. Holds model
+ * references directly instead of going through the features layer.
  */
 public class ConsoleView {
 
@@ -50,12 +48,12 @@ public class ConsoleView {
   private boolean running = true;
 
   /**
-   * constructs the console view with all 9 model references.
+   * Builds the console view with one reference per model.
    *
-   * @param userModel     user + admin operations.
+   * @param userModel     user and admin operations.
    * @param productModel  product catalog operations.
    * @param orderModel    order operations.
-   * @param itemModel     order-items (cart) operations.
+   * @param itemModel     order item (cart) operations.
    * @param paymentModel  payment operations.
    * @param shipmentModel shipment operations.
    * @param logModel      order log operations.
@@ -78,8 +76,8 @@ public class ConsoleView {
   }
 
   /**
-   * main menu loop. runs until the user chooses exit. dispatches to
-   * mainMenu / userMenu / adminMenu based on the current login state.
+   * Main menu loop. Runs until the user picks exit and dispatches to
+   * mainMenu, userMenu, or adminMenu based on the current login state.
    */
   public void run() {
     System.out.println("========================================");

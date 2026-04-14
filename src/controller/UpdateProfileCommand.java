@@ -5,9 +5,10 @@ import model.user.IBaseUser;
 import model.user.IUserModel;
 
 /**
- * Command that persists edited profile fields. constructed with a fully-built
- * IBaseUser (usually created via BaseUserAbstract.of(...) by the caller).
- * execute() returns the refreshed user on success.
+ * Saves edited profile fields back to the DB. Takes a fully built
+ * IBaseUser (normally created by the caller with
+ * BaseUserAbstract.of(...)). execute() returns the refreshed user on
+ * success.
  */
 public class UpdateProfileCommand implements Icommand<IBaseUser> {
   private final IUserModel userModel;

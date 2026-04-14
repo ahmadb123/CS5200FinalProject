@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the order model. covers placing orders, querying them by user
- * or status, status transitions (cancel / update), deletion, and the
- * SQL-function-backed total calculation.
- * orders have an FK to users but this interface takes plain ints so the
- * model layer stays decoupled from user types.
+ * Order model interface. Placing orders, looking them up by user or
+ * status, status transitions (cancel / update), deletion, and the
+ * SQL-function-backed total calculation. Orders have a foreign key to
+ * users but this interface takes plain int ids so the model layer is not
+ * coupled to any user type.
  */
 public interface IOrderModel {
 
@@ -42,7 +42,7 @@ public interface IOrderModel {
   List<Order> findOrdersByUser(int userId) throws SQLException;
 
   /**
-   * admin filter — find orders by their status string.
+   * admin filter - find orders by their status string.
    *
    * @param status status value (e.g. "pending", "shipped").
    * @return matching orders.
@@ -67,7 +67,7 @@ public interface IOrderModel {
   boolean updateOrderStatus(int orderId, String newStatus) throws SQLException;
 
   /**
-   * convenience — sets status to 'cancelled'.
+   * convenience - sets status to 'cancelled'.
    *
    * @param orderId order to cancel.
    * @return true if a row was updated.
@@ -86,9 +86,8 @@ public interface IOrderModel {
   boolean deleteOrder(int orderId) throws SQLException;
 
   /**
-   * calls the calc_order_total SQL function to compute the authoritative
-   * total for an order from its items. demonstrates the "Java calls
-   * server-side function" rubric pattern.
+   * Calls the calc_order_total SQL function to compute the total for an
+   * order from its items.
    *
    * @param orderId order whose total to compute.
    * @return the computed total, or 0 if the order has no items.

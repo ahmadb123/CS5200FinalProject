@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Exchange rate entity. 4 fields: rateId, currency (code like "USD"),
- * exchangeRate (decimal), updatedAt (last change timestamp). used for
- * converting prices between currencies via the convert_currency SQL
- * function. immutable, constructed via the nested Builder.
+ * Exchange rate entity. Holds a rate id, a currency code (for example
+ * "USD"), the rate itself as a decimal, and an updatedAt timestamp
+ * marking the last change. The convert_currency SQL function reads
+ * these rows when converting prices between currencies. Immutable;
+ * built through the nested Builder.
  */
 public class ExchangeRate {
   private final int rateId;

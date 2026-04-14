@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the product model. covers browsing the catalog, searching by name,
- * submitting new products (called "product requests" in the user flow), and
- * updating / deleting products. there is no role split — both regular users
- * and admins use these methods, matching the project spec that says users can
- * submit their own product requests.
+ * Product model interface. Browsing the catalog, searching by name,
+ * submitting new products ("product requests" in the user flow), and
+ * updating or deleting products. Both regular users and admins call the
+ * same methods - there is no role split, since regular users are allowed
+ * to submit their own product requests.
  */
 public interface IProductModel {
 
@@ -57,7 +57,7 @@ public interface IProductModel {
   boolean updateProduct(Product product) throws SQLException;
 
   /**
-   * admin convenience — update only the price.
+   * admin convenience - update only the price.
    *
    * @param productId product to update.
    * @param newPrice  new unit price.

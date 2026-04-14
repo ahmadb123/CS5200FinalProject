@@ -3,10 +3,11 @@ package model.emailNotification;
 import java.time.LocalDateTime;
 
 /**
- * Email notification entity. 6 fields: notificationId, orderId (FK), email
- * (recipient), subject, sentAt (timestamp), status ("sent"/"failed"/etc.).
- * records that a message was sent to a user about an order. immutable,
- * constructed via the nested Builder.
+ * Email notification entity. A record that a message was sent to a user
+ * about a particular order. Holds a notification id, the related order
+ * id, the recipient email, the subject, a sentAt timestamp, and a
+ * delivery status ("sent", "failed", and so on). Immutable; built
+ * through the nested Builder.
  */
 public class EmailNotification {
   private final int notificationId;

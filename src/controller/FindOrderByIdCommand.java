@@ -5,8 +5,8 @@ import model.order.IOrderModel;
 import model.order.Order;
 
 /**
- * Command that loads one order by id. execute() returns the matching order
- * or null if not found.
+ * Fetches a single order by its id. execute() returns the matching
+ * order, or null if no row was found.
  */
 public class FindOrderByIdCommand implements Icommand<Order> {
 

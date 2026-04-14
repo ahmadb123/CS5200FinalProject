@@ -11,11 +11,10 @@ import model.AbstractJdbcModel;
 import model.DBConnection;
 
 /**
- * Concrete JDBC implementation of IExchangeRateModel. extends AbstractJdbcModel
- * and uses inline SQL constants for CRUD. the convertAmount method is special:
- * it uses a plain PreparedStatement to call the convert_currency SQL function
- * directly ({@code SELECT convert_currency(?, ?)}), demonstrating the
- * "Java calls server-side function" rubric pattern.
+ * JDBC implementation of IExchangeRateModel. Extends AbstractJdbcModel and
+ * uses inline SQL constants for CRUD. The convertAmount method runs
+ * {@code SELECT convert_currency(?, ?)} through a PreparedStatement to call
+ * the convert_currency SQL function.
  */
 public class ExchangeRateModel extends AbstractJdbcModel implements IExchangeRateModel {
 

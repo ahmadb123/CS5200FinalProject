@@ -13,15 +13,15 @@ import model.user.UserModel;
 import view.ConsoleView;
 
 /**
- * CLI launcher. wires the full set of models (all 9 entities) and hands them
- * to the text-based console view. selected by Main when --mode cli is passed.
- * unlike the GUI which is scoped to User + Order, the CLI exposes every entity
- * so graders / developers can exercise the full model layer from a terminal.
+ * CLI launcher. builds every model and hands them to the console view.
+ * Selected by Main when --mode cli is passed. Unlike the GUI which only
+ * uses user and order models, the CLI uses every entity so the full model
+ * layer is reachable from a terminal.
  */
 public class CliLauncher implements IWorldBuyController {
 
   /**
-   * wires all 9 models and starts the console view's menu loop.
+   * Builds all models and starts the console view's menu loop.
    */
   @Override
   public void run() {

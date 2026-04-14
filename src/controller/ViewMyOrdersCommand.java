@@ -6,8 +6,8 @@ import model.order.IOrderModel;
 import model.order.Order;
 
 /**
- * Command that loads one user's order history.
- * execute() returns the list (possibly empty).
+ * Loads one user's order history. execute() returns the list, which may
+ * be empty.
  */
 public class ViewMyOrdersCommand implements Icommand<List<Order>> {
 

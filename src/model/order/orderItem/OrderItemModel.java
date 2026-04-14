@@ -11,10 +11,11 @@ import model.DBConnection;
 import model.order.orderItem.IOrderItemModel;
 
 /**
- * Concrete JDBC implementation of IOrderItemModel. routes all operations
- * through stored procedures (add_order_item, find_items_by_order, etc.).
- * subtotals are auto-computed by BEFORE INSERT / BEFORE UPDATE triggers
- * on the order_items table, so Java never has to do the multiplication.
+ * IOrderItemModel implementation. Every operation goes through a stored
+ * procedure (add_order_item, find_items_by_order, and so on). Subtotals
+ * are filled in by BEFORE INSERT and BEFORE UPDATE triggers on the
+ * order_items table, so Java code never has to do the multiplication
+ * itself.
  */
 public class OrderItemModel implements IOrderItemModel {
   private final DBConnection database;

@@ -4,8 +4,9 @@ import java.sql.SQLException;
 import model.user.IAdminModel;
 
 /**
- * Admin command that hard-deletes any user by id. cascades to that user's
- * orders via FK. execute() returns true if a row was deleted.
+ * Admin-only: permanently deletes any user by id. The foreign key on
+ * orders cascades so the user's orders are removed as well. execute()
+ * returns true if a row was deleted.
  */
 public class DeleteAnyUserCommand implements Icommand<Boolean> {
 

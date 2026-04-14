@@ -4,11 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Admin contract — extends IUserModel with 6 admin-only user management operations.
- * admins can still do everything a regular user can (inherited from IUserModel)
- * plus the admin-specific actions declared here. the one concrete UserModel class
- * implements this interface; the controller hands it out as IUserModel or IAdminModel
- * depending on the caller's role.
+ * Admin user model interface. Extends IUserModel with admin-only user
+ * management operations. An admin can still do anything a regular user
+ * can (inherited from IUserModel) plus the admin-specific actions
+ * declared here. UserModel is the single concrete class that implements
+ * this interface; the controller hands it out as IUserModel or
+ * IAdminModel based on the caller's role.
  */
 public interface IAdminModel extends IUserModel {
 
@@ -19,7 +20,7 @@ public interface IAdminModel extends IUserModel {
   List<IBaseUser> viewAllUsers() throws SQLException;
 
   /**
-   * admin lookup — get any user by id (not just self).
+   * admin lookup - get any user by id (not just self).
    *
    * @param userId id to look up.
    * @return the matching user, or null.

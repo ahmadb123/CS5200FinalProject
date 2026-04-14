@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the order-items (cart) model. order_items has a composite
- * primary key (order_id, product_id) so there's no single findById — instead
- * we use (orderId, productId) pairs or find-by-order queries.
- * subtotals are auto-computed by a DB trigger on insert/update.
+ * Order item (cart) model interface. The order_items table has a composite
+ * primary key (order_id, product_id), so lookups take an (orderId, productId)
+ * pair or a find-by-order call. Subtotals are computed by a DB trigger on
+ * insert/update.
  */
 public interface IOrderItemModel {
 

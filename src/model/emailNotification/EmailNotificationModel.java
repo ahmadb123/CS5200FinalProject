@@ -8,10 +8,11 @@ import model.AbstractJdbcModel;
 import model.DBConnection;
 
 /**
- * Concrete JDBC implementation of IEmailNotificationModel. extends
- * AbstractJdbcModel and uses inline SQL constants. notifications are
- * append-only (like order logs) except their delivery status can be
- * updated to reflect "failed" or similar after the initial insert.
+ * IEmailNotificationModel implementation built on AbstractJdbcModel with
+ * inline SQL constants. Behaves almost like the order log table:
+ * notifications are append-only except for the delivery status column,
+ * which can be updated after the initial insert (for example to switch
+ * it from "sent" to "failed").
  */
 public class EmailNotificationModel extends AbstractJdbcModel implements IEmailNotificationModel {
 

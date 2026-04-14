@@ -6,10 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Contract for the exchange rate model. stores currency codes and their
- * exchange rates, and exposes the convertAmount helper that calls the
- * convert_currency SQL function. demonstrates the "Java calls server-side
- * function" rubric pattern alongside OrderModel.calculateOrderTotal.
+ * Exchange rate model interface. Stores currency codes and their exchange
+ * rates, and exposes a convertAmount helper that calls the convert_currency
+ * SQL function.
  */
 public interface IExchangeRateModel {
 

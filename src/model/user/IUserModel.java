@@ -3,9 +3,10 @@ package model.user;
 import java.sql.SQLException;
 
 /**
- * Contract for the user model — the 6 account-level operations a regular user
- * can invoke. narrower than IAdminModel so ISP-respecting code can hold this
- * reference type and be prevented (at compile time) from calling admin methods.
+ * User model interface. The account-level operations that a regular user
+ * can call. This is a narrower view than IAdminModel, so code that only
+ * needs regular-user access can hold an IUserModel reference and the
+ * compiler will refuse any call to an admin-only method.
  */
 public interface IUserModel {
 
@@ -30,8 +31,8 @@ public interface IUserModel {
   IBaseUser login(String email) throws SQLException;
 
   /**
-   * ends the user's session. no DB work; kept here so the UI has one place
-   * to call for logout symmetry.
+   * Ends the user's session. Does no DB work; it lives on the interface
+   * so the UI has a single method to call when logging out.
    *
    * @param userId id of the user logging out.
    */
